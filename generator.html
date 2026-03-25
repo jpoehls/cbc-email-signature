@@ -227,6 +227,10 @@
   <script>
     // Keep this template easy to edit: exact signature markup from sig.html
     // with only the variable parts replaced by placeholders.
+    const LOGO_URL = "https://media.thechurchcoassets.com/accounts/97/49b658b9-7fd4-43e6-9e09-3b3e580470cd-logo-cbc.png";
+    const LOGO_WIDTH = 130;
+    const LOGO_HEIGHT = 84;
+
     const signatureTemplate = `
 <table cellpadding="0" cellspacing="0" border="0" style="vertical-align: -webkit-baseline-middle; font-size: 12pt; font-family: Verdana, Arial, sans-serif; color: rgb(0, 0, 0);">
   <tbody>
@@ -235,12 +239,12 @@
         <table cellpadding="0" cellspacing="0" border="0" style="vertical-align: -webkit-baseline-middle; font-family: Verdana, Arial, sans-serif; color: rgb(0, 0, 0);">
           <tbody>
             <tr>
-              <td width="130" height="84" style="vertical-align: top; width: 130px; min-width: 130px; height: 84px;">
-                <table cellpadding="0" cellspacing="0" border="0" width="130" style="vertical-align: -webkit-baseline-middle; font-family: Verdana, Arial, sans-serif; width: 130px; min-width: 130px; table-layout: fixed;">
+              <td width="${LOGO_WIDTH}" height="${LOGO_HEIGHT}" style="vertical-align: top; width: ${LOGO_WIDTH}px; min-width: ${LOGO_WIDTH}px; height: ${LOGO_HEIGHT}px;">
+                <table cellpadding="0" cellspacing="0" border="0" width="${LOGO_WIDTH}" style="vertical-align: -webkit-baseline-middle; font-family: Verdana, Arial, sans-serif; width: ${LOGO_WIDTH}px; min-width: ${LOGO_WIDTH}px; table-layout: fixed;">
                   <tbody>
                     <tr>
-                      <td width="130" height="84" style="text-align: center; width: 130px; min-width: 130px; height: 84px;">
-                        <img src="https://media.thechurchcoassets.com/accounts/97/49b658b9-7fd4-43e6-9e09-3b3e580470cd-logo-cbc.png" role="presentation" width="130" height="84" style="width: 130px; min-width: 130px; max-width: 130px; height: 84px; display: block; border: 0;">
+                      <td width="${LOGO_WIDTH}" height="${LOGO_HEIGHT}" style="text-align: center; width: ${LOGO_WIDTH}px; min-width: ${LOGO_WIDTH}px; height: ${LOGO_HEIGHT}px;">
+                        <img src="${LOGO_URL}" role="presentation" width="${LOGO_WIDTH}" height="${LOGO_HEIGHT}" style="width: ${LOGO_WIDTH}px; min-width: ${LOGO_WIDTH}px; max-width: ${LOGO_WIDTH}px; height: ${LOGO_HEIGHT}px; display: block; border: 0;">
                       </td>
                     </tr>
                   </tbody>
