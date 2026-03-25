@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Signature Generator</title>
+  <style>
+    #sig-generator-app {
+      all: initial;
+      display: block;
+      color-scheme: light;
+      margin: 24px;
+      background: #f7f8fa;
+      color: #111;
+      font-family: Verdana, Arial, sans-serif;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    #sig-generator-app * {
+      box-sizing: border-box;
+      font-family: Verdana, Arial, sans-serif;
+    }
+
+    /* Scoped normalization so host-page CSS is less likely to bleed in. */
+    #sig-generator-app h1,
+    #sig-generator-app h2,
+    #sig-generator-app h3,
+    #sig-generator-app h4,
+    #sig-generator-app h5,
+    #sig-generator-app h6,
+    #sig-generator-app p,
+    #sig-generator-app div,
+    #sig-generator-app span,
+    #sig-generator-app label,
+    #sig-generator-app form,
+    #sig-generator-app section {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font: inherit;
+      color: inherit;
+      letter-spacing: normal;
+      text-transform: none;
+      text-shadow: none;
+    }
+
+    #sig-generator-app table,
+    #sig-generator-app tbody,
+    #sig-generator-app tr,
+    #sig-generator-app td {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-spacing: 0;
+      border-collapse: separate;
+      font: inherit;
+      color: inherit;
+      vertical-align: baseline;
+    }
+
+    #sig-generator-app a {
+      font: inherit;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    #sig-generator-app img {
+      border: 0;
+      outline: 0;
+      max-width: none;
+      box-shadow: none;
+    }
+
+    #sig-generator-app input,
+    #sig-generator-app button {
+      margin: 0;
+      font: inherit;
+      letter-spacing: normal;
+      text-transform: none;
+      text-shadow: none;
+    }
+
+    #sig-generator-app .sg-signature-copy-area,
+    #sig-generator-app .sg-signature-copy-area * {
+      letter-spacing: normal;
+      text-transform: none;
+      text-indent: 0;
+      word-spacing: normal;
+      white-space: normal;
+      direction: ltr;
+      unicode-bidi: normal;
+      text-rendering: auto;
+    }
+
+    #sig-generator-app .sg-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    #sig-generator-app .sg-title {
+      font-size: 24px;
+      margin: 0 0 16px;
+    }
+
+    #sig-generator-app .sg-card {
+      background: #fff;
+      border: 1px solid #d9dde3;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    #sig-generator-app .sg-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      align-items: end;
+    }
+
+    #sig-generator-app .sg-label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    #sig-generator-app .sg-input {
+      width: 100%;
+      border: 1px solid #b8bec8;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 14px;
+      color: #111;
+      background: #fff;
+    }
+
+    #sig-generator-app .sg-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    #sig-generator-app .sg-btn {
+      border: 1px solid #0f3556;
+      background: #144064;
+      color: #fff;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #sig-generator-app .sg-btn-secondary {
+      background: #fff;
+      color: #144064;
+    }
+
+    #sig-generator-app .sg-help {
+      margin: 0 0 10px;
+      color: #333;
+      font-size: 13px;
+    }
+
+    #sig-generator-app .sg-signature-shell {
+      border: 1px dashed #9ea8b7;
+      border-radius: 8px;
+      background: #fff;
+      padding: 16px;
+      overflow: auto;
+    }
+
+    #sig-generator-app .sg-signature-copy-area {
+      display: inline-block;
+      cursor: text;
+      background: #fff;
+    }
+
+    #sig-generator-app .sg-status {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #1d5d2b;
+      min-height: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="sig-generator-app">
+    <div class="sg-wrap">
+    <h1 class="sg-title">Email Signature Generator</h1>
+
+    <section class="sg-card">
+      <form id="signature-form" class="sg-form-grid">
+        <div>
+          <label class="sg-label" for="name">Name</label>
+          <input class="sg-input" id="name" name="name" type="text" value="First Last">
+        </div>
+        <div>
+          <label class="sg-label" for="title">Title</label>
+          <input class="sg-input" id="title" name="title" type="text" value="Title">
+        </div>
+        <div>
+          <label class="sg-label" for="phone">Phone Number</label>
+          <input class="sg-input" id="phone" name="phone" type="text" value="000-000-0000">
+        </div>
+        <div>
+          <label class="sg-label" for="email">Email</label>
+          <input class="sg-input" id="email" name="email" type="email" value="name@cbcluling.com">
+        </div>
+        <div class="sg-actions">
+          <button type="button" id="select-btn" class="sg-btn sg-btn-secondary">Select Signature</button>
+          <button type="button" id="copy-btn" class="sg-btn">Copy Signature</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="sg-card">
+      <p class="sg-help">Click inside the signature, then copy/paste into your email client. Use "Select Signature" for one-click highlighting.</p>
+      <div class="sg-signature-shell">
+        <div id="signature-output" class="sg-signature-copy-area"></div>
+      </div>
+      <div id="status" class="sg-status"></div>
+    </section>
+    </div>
+  </div>
+
+  <script>
+    // Keep this template easy to edit: exact signature markup from sig.html
+    // with only the variable parts replaced by placeholders.
+    const signatureTemplate = `
+<table cellpadding="0" cellspacing="0" border="0" style="vertical-align: -webkit-baseline-middle; font-size: 12pt; font-family: Verdana, Arial, sans-serif; color: rgb(0, 0, 0);">
+  <tbody>
+    <tr>
+      <td>
+        <table cellpadding="0" cellspacing="0" border="0" style="vertical-align: -webkit-baseline-middle; font-family: Verdana, Arial, sans-serif; color: rgb(0, 0, 0);">
+          <tbody>
+            <tr>
+              <td style="vertical-align: top;">
+                <table cellpadding="0" cellspacing="0" border="0" style="vertical-align: -webkit-baseline-middle; font-family: Verdana, Arial, sans-serif;">
+                  <tbody>
+                    <tr>
+                      <td style="text-align: center;">
+                        <img src="https://media.thechurchcoassets.com/accounts/97/49b658b9-7fd4-43e6-9e09-3b3e580470cd-logo-cbc.png" role="presentation" width="130" style="max-width: 130px; display: block; border: 0;">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td width="20" aria-label="Vertical Spacer">
+                <div style="width: 20px;"></div>
+              </td>
+              <td style="padding: 0; vertical-align: middle; font-family: Verdana, Arial, sans-serif; color: rgb(0, 0, 0);">
+                <!--Name-->
+                <h2 style="margin: 0; font-size: 14pt; font-family: Verdana, Arial, sans-serif; color: rgb(0, 0, 0); font-weight: 600; line-height: 24px;">
+                  <span>{{name}}</span>
+                </h2>
+                <!--Role-->
+                <p style="margin: 0; color: rgb(0, 0, 0); font-size: 12pt; font-family: Verdana, Arial, sans-serif; font-style: italic; line-height: 20px;">
+                  <span>{{title}}</span>
+                </p>
+
+                <table cellpadding="0" cellspacing="0" border="0" style="margin-top: 15px; vertical-align: -webkit-baseline-middle; font-size: 12pt; font-family: Verdana, Arial, sans-serif; line-height: 1;">
+                  <tbody>
+                    <tr style="vertical-align: middle; height: 20px;">
+                      <td width="24" style="vertical-align: middle;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="24" style="vertical-align: -webkit-baseline-middle; width: 24px; font-family: Verdana, Arial, sans-serif;">
+                          <tbody>
+                            <tr>
+                              <td style="vertical-align: bottom;">
+                                <span style="display: inline-block; background-color: rgb(20, 64, 100);">
+                                  <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-dark-2x.png" alt="mobilePhone" width="16" style="display: block; border: 0;">
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td style="padding: 0; color: rgb(0, 0, 0); font-family: Verdana, Arial, sans-serif;">
+                        <a href="tel:{{phoneTel}}" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12pt; font-family: Verdana, Arial, sans-serif;">
+                          <span>{{phone}}</span>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr style="vertical-align: middle; height: 20px;">
+                      <td width="24" style="vertical-align: middle;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="24" style="vertical-align: -webkit-baseline-middle; width: 24px; font-family: Verdana, Arial, sans-serif;">
+                          <tbody>
+                            <tr>
+                              <td style="vertical-align: bottom;">
+                                <span style="display: inline-block; background-color: rgb(20, 64, 100);">
+                                  <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-dark-2x.png" alt="emailAddress" width="16" style="display: block; border: 0;">
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td style="padding: 0; color: rgb(0, 0, 0); font-family: Verdana, Arial, sans-serif;">
+                        <a href="mailto:{{emailMailto}}" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12pt; font-family: Verdana, Arial, sans-serif;">
+                          <span>{{email}}</span>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!--Line-->
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="vertical-align: -webkit-baseline-middle; width: 100%; font-family: Verdana, Arial, sans-serif;">
+                  <tbody>
+                    <tr>
+                      <td height="8" aria-label="Horizontal Spacer"></td>
+                    </tr>
+                    <tr>
+                      <td width="auto" aria-label="Divider" style="width: 100%; height: 1px; border-bottom: 1px solid rgb(20, 64, 100); display: block;"></td>
+                    </tr>
+                    <tr>
+                      <td height="8" aria-label="Horizontal Spacer"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!--Organization-->
+                <div style="margin: 0 0 3px; font-weight: 600; color: rgb(0, 0, 0); font-size: 12pt; font-family: Verdana, Arial, sans-serif; line-height: 20px;">
+                  <span>Central Baptist Church</span>
+                </div>
+                <table cellpadding="0" cellspacing="0" border="0" style="vertical-align: -webkit-baseline-middle; font-size: 12pt; font-family: Verdana, Arial, sans-serif; line-height: 1;">
+                  <tbody>
+                    <tr style="vertical-align: middle; height: 20px;">
+                      <td width="24" style="vertical-align: middle;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="24" style="vertical-align: -webkit-baseline-middle; width: 24px; font-family: Verdana, Arial, sans-serif;">
+                          <tbody>
+                            <tr>
+                              <td style="vertical-align: bottom;">
+                                <span style="display: inline-block; background-color: rgb(20, 64, 100);">
+                                  <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-dark-2x.png" alt="website" width="16" style="display: block; border: 0;">
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td style="padding: 0; color: rgb(0, 0, 0); font-family: Verdana, Arial, sans-serif;">
+                        <a href="https://www.cbcluling.com" target="_blank" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12pt; font-family: Verdana, Arial, sans-serif;">
+                          <span>www.cbcluling.com</span>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr style="vertical-align: middle; height: 20px;">
+                      <td width="24" style="vertical-align: middle;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="24" style="vertical-align: -webkit-baseline-middle; width: 24px; font-family: Verdana, Arial, sans-serif;">
+                          <tbody>
+                            <tr>
+                              <td style="vertical-align: bottom;">
+                                <span style="display: inline-block; background-color: rgb(20, 64, 100);">
+                                  <img src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-dark-2x.png" alt="address" width="16" style="display: block; border: 0;">
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td style="padding: 0; color: rgb(0, 0, 0); font-family: Verdana, Arial, sans-serif;">
+                        <a target="_blank" href="https://www.google.com/maps/place/515+S+Magnolia+Ave,+Luling,+TX+78648/@29.6756532,-97.6503905,16z/data=!3m1!4b1!4m6!3m5!1s0x86434f244be5db73:0x6ba7b3c3130ec1d9!8m2!3d29.6756486!4d-97.6478156!16s%2Fg%2F11b8v6ws9k?entry=ttu&g_ep=EgoyMDI2MDMyMy4xIKXMDSoASAFQAw%3D%3D" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12pt; font-family: Verdana, Arial, sans-serif;">
+                          <span>515 S. Magnolia Ave., Luling, TX 78648</span>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+`.trim();
+
+    const form = document.getElementById("signature-form");
+    const nameInput = document.getElementById("name");
+    const titleInput = document.getElementById("title");
+    const phoneInput = document.getElementById("phone");
+    const emailInput = document.getElementById("email");
+    const output = document.getElementById("signature-output");
+    const status = document.getElementById("status");
+    const selectButton = document.getElementById("select-btn");
+    const copyButton = document.getElementById("copy-btn");
+
+    function toTelValue(phone) {
+      return phone.replace(/[^+\d]/g, "");
+    }
+
+    function toMailtoValue(email) {
+      return email.trim();
+    }
+
+    function renderSignature() {
+      const values = {
+        name: nameInput.value.trim() || " ",
+        title: titleInput.value.trim() || " ",
+        phone: phoneInput.value.trim() || " ",
+        phoneTel: toTelValue(phoneInput.value.trim() || " "),
+        email: emailInput.value.trim() || " ",
+        emailMailto: toMailtoValue(emailInput.value.trim() || " ")
+      };
+
+      const rendered = signatureTemplate.replace(/\{\{(\w+)\}\}/g, (_, key) => values[key] ?? "");
+      output.innerHTML = rendered;
+      status.textContent = "";
+    }
+
+    function selectSignatureContents() {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(output);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      status.textContent = "Signature selected. Press Cmd+C to copy.";
+    }
+
+    async function copySignatureContents() {
+      selectSignatureContents();
+      try {
+        document.execCommand("copy");
+        status.textContent = "Signature copied. Paste into your email signature settings.";
+      } catch (err) {
+        status.textContent = "Could not auto-copy. Use Cmd+C after selection.";
+      }
+    }
+
+    form.addEventListener("input", renderSignature);
+    selectButton.addEventListener("click", selectSignatureContents);
+    copyButton.addEventListener("click", copySignatureContents);
+    output.addEventListener("click", selectSignatureContents);
+
+    renderSignature();
+  </script>
+</body>
+</html>
